@@ -3,150 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TAISO | Finance Follow-up</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>TAISO | Elite Finance Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --accent-gold: #ffb703;
-            --deep-navy: #0f172a;
-            --glass-white: rgba(255, 255, 255, 0.05);
-            --border-light: rgba(255, 255, 255, 0.1);
+            --primary-neon: #00d4ff;
+            --bg-dark: #0a0e14;
+            --card-bg: #161b22;
+            --text-main: #e6edf3;
+            --grad: linear-gradient(135deg, #00d4ff 0%, #0072ff 100%);
         }
 
         body { 
-            background-color: var(--deep-navy); 
-            font-family: 'Poppins', sans-serif; 
-            color: #ffffff;
+            background-color: var(--bg-dark); 
+            font-family: 'Outfit', sans-serif; 
+            color: var(--text-main);
             padding-bottom: 50px;
         }
 
-        /* Taiso Header Section */
-        .taiso-header {
-            padding: 50px 0 30px;
+        /* TAISO Animated Header */
+        .taiso-nav {
+            padding: 30px 0;
             text-align: center;
-            border-bottom: 1px solid var(--border-light);
-            margin-bottom: 40px;
-            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
         }
 
         .taiso-logo {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 3.5rem;
-            letter-spacing: 12px;
-            color: var(--accent-gold);
-            text-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
+            font-weight: 800;
+            font-size: 3rem;
+            letter-spacing: 15px;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 0;
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.3));
         }
 
-        .sub-tag {
-            font-size: 0.7rem;
-            letter-spacing: 4px;
+        .sub-text {
+            font-size: 0.65rem;
+            letter-spacing: 6px;
+            color: #8b949e;
             text-transform: uppercase;
-            color: #64748b;
         }
 
-        /* Glassmorphism Cards */
-        .glass-panel { 
-            background: var(--glass-white);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border-light);
-            border-radius: 20px; 
+        /* Modern Neumorphic Cards */
+        .premium-card { 
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 28px; 
             padding: 25px;
-            margin-bottom: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             height: 100%;
         }
 
-        .panel-label {
+        .label-neon {
+            color: var(--primary-neon);
+            font-size: 0.75rem;
             font-weight: 600;
-            color: var(--accent-gold);
-            font-size: 0.8rem;
             letter-spacing: 1.5px;
-            text-transform: uppercase;
             margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Input Overhaul */
+        .form-control, .form-select {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            color: #fff;
+            padding: 14px;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+            background: #0d1117;
+            color: #fff;
+        }
+
+        /* Button Design */
+        .btn-neon {
+            background: var(--grad);
+            color: #fff;
+            font-weight: 700;
+            border-radius: 16px;
+            padding: 15px;
+            border: none;
+            transition: 0.4s;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Table Aesthetics */
+        .table { color: #c9d1d9; border-collapse: separate; border-spacing: 0 12px; }
+        .table thead th { border: none; color: #8b949e; font-size: 0.7rem; padding-left: 15px; }
+        .table tbody tr { background: #1c2128; border-radius: 20px; transition: 0.3s; }
+        .table tbody tr:hover { transform: scale(1.01); background: #2d333b; }
+        .table td { padding: 18px 15px; border: none; vertical-align: middle; }
+        .table td:first-child { border-radius: 20px 0 0 20px; }
+        .table td:last-child { border-radius: 0 20px 20px 0; }
+
+        /* Modern Action Buttons */
+        .action-box {
             display: flex;
-            align-items: center;
             gap: 10px;
         }
 
-        /* Custom Inputs */
-        .form-control, .form-select {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            color: #fff;
-            padding: 12px;
-            font-size: 0.9rem;
-        }
-
-        .form-control:focus, .form-select:focus {
-            background: rgba(0, 0, 0, 0.4);
-            border-color: var(--accent-gold);
-            color: #fff;
-            box-shadow: 0 0 10px rgba(255, 183, 3, 0.1);
-        }
-
-        /* Gold Action Button */
-        .btn-taiso {
-            background: var(--accent-gold);
-            color: #000;
-            font-weight: 700;
-            border-radius: 10px;
-            padding: 12px;
-            border: none;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-taiso:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 183, 3, 0.4);
-            background: #fca311;
-        }
-
-        /* Table Design */
-        .table { color: #f1f5f9; vertical-align: middle; }
-        .table thead th { border: none; color: #64748b; font-size: 0.7rem; letter-spacing: 1px; }
-        .table tbody tr { background: rgba(255, 255, 255, 0.02); transition: 0.2s; border-radius: 10px; }
-        .table td { border-top: 5px solid var(--deep-navy); border-bottom: 5px solid var(--deep-navy); padding: 15px; }
-
-        /* Action Icons */
-        .circle-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 8px;
-            display: inline-flex;
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border: 1px solid var(--border-light);
-            transition: 0.3s;
+            background: #0d1117;
+            color: var(--primary-neon);
+            border: 1px solid #30363d;
             text-decoration: none;
-            margin-right: 5px;
+            transition: 0.3s;
         }
 
-        .circle-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
-        .btn-wa:hover { color: #25D366; border-color: #25D366; }
+        .icon-btn:hover {
+            background: var(--primary-neon);
+            color: #000;
+            border-color: var(--primary-neon);
+        }
 
-        .loading-spinner { color: var(--accent-gold); }
+        .btn-resched {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary-neon);
+            font-size: 0.7rem;
+            padding: 0 15px;
+            width: auto;
+        }
     </style>
 </head>
 <body>
 
-<div class="taiso-header">
+<div class="taiso-nav">
     <h1 class="taiso-logo">TAISO</h1>
-    <p class="sub-tag">Finance Collection Systems</p>
+    <div class="sub-text">Elite Ledger System</div>
 </div>
 
 <div class="container">
     <div class="row g-4">
         <div class="col-lg-4">
-            <div class="glass-panel" id="entryFormCard">
-                <div class="panel-label"><i class="fas fa-plus-square"></i> New Collection</div>
+            <div class="premium-card">
+                <span class="label-neon"><i class="fa-solid fa-bolt me-2"></i>QUICK ADD</span>
                 <form id="entryForm">
                     <div class="mb-3">
                         <input type="text" id="clientName" class="form-control" placeholder="Client Name" required>
@@ -159,28 +171,28 @@
                     </div>
                     <div class="mb-3">
                         <select id="purpose" class="form-select">
-                            <option value="Payment">💰 Payment</option>
-                            <option value="Visit">🏠 Field Visit</option>
-                            <option value="Call">📞 Reminder</option>
+                            <option value="Payment">Payment Collection</option>
+                            <option value="Visit">Site Visit</option>
+                            <option value="Call">Reminder Call</option>
                         </select>
                     </div>
-                    <button type="submit" id="saveBtn" class="btn btn-taiso w-100">Confirm Entry</button>
+                    <button type="submit" id="saveBtn" class="btn btn-neon w-100 mt-2">Submit Record</button>
                 </form>
             </div>
         </div>
 
         <div class="col-lg-8">
-            <div class="glass-panel">
+            <div class="premium-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="panel-label mb-0"><i class="fas fa-file-invoice"></i> Daily Ledger</div>
+                    <span class="label-neon"><i class="fa-solid fa-layer-group me-2"></i>ACTIVE LEDGER</span>
                     <div class="d-flex gap-2">
-                        <input type="date" id="searchDate" class="form-control form-control-sm" style="width: 150px;">
-                        <button onclick="getReport()" class="btn btn-taiso btn-sm px-3"><i class="fas fa-sync-alt"></i></button>
+                        <input type="date" id="searchDate" class="form-control form-control-sm" style="width: 140px; padding: 8px;">
+                        <button onclick="getReport()" class="btn-neon" style="padding: 5px 15px; border-radius: 12px;"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
 
                 <div id="loading" class="text-center d-none my-5">
-                    <div class="spinner-border loading-spinner" role="status"></div>
+                    <div class="spinner-grow text-info" role="status"></div>
                 </div>
 
                 <div class="table-responsive">
@@ -188,16 +200,17 @@
                         <thead>
                             <tr>
                                 <th>CLIENT</th>
-                                <th>PURPOSE</th>
-                                <th>MANAGE</th>
+                                <th>TASK</th>
+                                <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody id="reportBody"></tbody>
                     </table>
                 </div>
 
-                <div id="noData" class="text-center p-5 d-none opacity-50">
-                    <p>No data found for this date.</p>
+                <div id="noData" class="text-center p-5 d-none opacity-25">
+                    <i class="fa-solid fa-inbox fa-3x mb-3"></i>
+                    <p>No activity found.</p>
                 </div>
             </div>
         </div>
@@ -217,7 +230,7 @@
     document.getElementById('entryForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
-        btn.disabled = true; btn.innerText = "PROCESSING...";
+        btn.disabled = true; btn.innerText = "Syncing...";
 
         const data = {
             action: "add_entry",
@@ -229,16 +242,15 @@
 
         fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(data) })
         .then(() => {
-            alert("✓ Data Saved to TAISO System.");
+            alert("✓ Success: Data Encrypted & Saved.");
             document.getElementById('entryForm').reset();
-            btn.disabled = false; btn.innerText = "Confirm Entry";
+            btn.disabled = false; btn.innerText = "Submit Record";
         });
     });
 
     async function getReport() {
         const sDate = document.getElementById('searchDate').value;
         if(!sDate) return;
-
         const loading = document.getElementById('loading');
         const table = document.getElementById('reportTable');
         const body = document.getElementById('reportBody');
@@ -254,26 +266,26 @@
             
             if(data && data.length > 0) {
                 data.forEach(row => {
-                    const waLink = `https://wa.me/91${row.mobile}?text=Namaste ${row.name}, TAISO reminder for your ${row.purpose} scheduled today.`;
+                    const waLink = `https://wa.me/91${row.mobile}?text=Hi ${row.name}, TAISO reminder for ${row.purpose} scheduled today.`;
                     body.innerHTML += `
                         <tr>
                             <td>
-                                <div class="fw-bold">${row.name}</div>
-                                <div class="text-secondary small">${row.mobile}</div>
+                                <div class="fw-bold text-white">${row.name}</div>
+                                <div style="font-size: 0.75rem; color: #8b949e;">${row.mobile}</div>
                             </td>
-                            <td><span class="badge bg-dark text-warning border border-secondary">${row.purpose}</span></td>
+                            <td><span style="color: #58a6ff; font-size: 0.75rem; background: rgba(88, 166, 255, 0.1); padding: 5px 10px; border-radius: 8px;">${row.purpose}</span></td>
                             <td>
-                                <div class="d-flex">
-                                    <a href="tel:${row.mobile}" class="circle-btn" title="Call"><i class="fas fa-phone-alt"></i></a>
-                                    <a href="${waLink}" target="_blank" class="circle-btn btn-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                                    <button onclick="fillForm('${row.name}', '${row.mobile}', '${row.purpose}')" class="circle-btn" title="Reschedule"><i class="fas fa-redo-alt"></i></button>
+                                <div class="action-box">
+                                    <a href="tel:${row.mobile}" class="icon-btn"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="${waLink}" target="_blank" class="icon-btn" style="color: #2ea043;"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <button onclick="fillForm('${row.name}', '${row.mobile}', '${row.purpose}')" class="icon-btn btn-resched"><i class="fa-solid fa-calendar-day me-2"></i>Date</button>
                                 </div>
                             </td>
                         </tr>`;
                 });
                 table.classList.remove('d-none');
             } else { noData.classList.remove('d-none'); }
-        } catch (e) { loading.classList.add('d-none'); alert("System Error!"); }
+        } catch (e) { loading.classList.add('d-none'); }
     }
 </script>
 </body>

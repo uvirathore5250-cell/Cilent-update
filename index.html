@@ -3,201 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahu CRM | Follow-up Manager</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Sahu Pro | Finance Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #4361ee;
-            --success-color: #2ec4b6;
-            --bg-body: #f8f9fc;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --accent: #ffb703; /* Gold accent for Finance */
+            --dark-bg: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
         }
 
         body { 
-            background-color: var(--bg-body); 
-            font-family: 'Inter', sans-serif; 
-            color: #334155;
+            background-color: var(--dark-bg); 
+            font-family: 'Poppins', sans-serif; 
+            color: #f8fafc;
             padding-bottom: 50px;
         }
 
-        /* Navbar Style */
-        .navbar {
-            background: linear-gradient(135deg, #4361ee, #3a0ca3);
-            padding: 1rem 0;
+        /* Hero Header */
+        .hero-header {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                        url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--accent);
             margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* Glass Cards */
-        .card { 
-            border: none; 
-            border-radius: 20px; 
-            box-shadow: var(--card-shadow);
-            background: #ffffff;
+        /* Glassmorphism Cards */
+        .glass-card { 
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px; 
+            padding: 30px;
             margin-bottom: 25px;
-            overflow: hidden;
         }
 
-        .card-header {
-            background: transparent;
-            border-bottom: 1px solid #f1f5f9;
-            padding: 20px 25px;
+        .section-title {
             font-weight: 700;
-            color: #1e293b;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
 
-        /* Input Styles */
+        /* Inputs */
         .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 12px 15px;
-            border: 1px solid #e2e8f0;
-            background-color: #fcfdfe;
-            transition: all 0.3s;
+            color: white;
+            padding: 12px;
         }
 
-        .form-control:focus {
-            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
-            border-color: var(--primary-color);
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: none;
         }
 
-        /* Button Styles */
-        .btn-primary {
-            background: var(--primary-color);
-            border: none;
+        /* Buttons */
+        .btn-gold {
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
             border-radius: 12px;
-            padding: 12px 25px;
-            font-weight: 600;
+            padding: 12px 30px;
             transition: 0.3s;
         }
 
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3); }
+        .btn-gold:hover { transform: translateY(-3px); background: #fca311; }
 
-        /* Action Buttons in Table */
-        .action-btns { display: flex; gap: 8px; }
-        .btn-circle {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
+        /* Table Styling */
+        .table { color: #f8fafc; border-collapse: separate; border-spacing: 0 10px; }
+        .table thead th { border: none; color: #94a3b8; font-size: 0.8rem; padding: 15px; }
+        .table tbody tr { background: rgba(255, 255, 255, 0.02); transition: 0.3s; }
+        .table tbody tr:hover { background: rgba(255, 255, 255, 0.05); }
+        .table td { padding: 20px 15px; border: none; }
+        .table td:first-child { border-radius: 12px 0 0 12px; }
+        .table td:last-child { border-radius: 0 12px 12px 0; }
+
+        /* Icon Buttons */
+        .btn-action {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
+            margin-right: 8px;
             transition: 0.3s;
-            border: none;
+            border: 1px solid var(--card-border);
+            color: white;
+            text-decoration: none;
         }
 
-        .btn-tel { background: rgba(67, 97, 238, 0.1); color: var(--primary-color); }
-        .btn-wa { background: rgba(46, 196, 182, 0.1); color: #08a092; }
-        .btn-reschedule { background: rgba(111, 66, 193, 0.1); color: #6f42c1; font-size: 0.8rem; padding: 0 15px; width: auto; height: 38px;}
+        .btn-action:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-whatsapp { background: #25D36620; color: #25D366; }
 
-        /* Table Design */
-        .table { margin-bottom: 0; }
-        .table thead th {
-            background: #f8f9fc;
-            text-transform: uppercase;
+        .badge-purpose {
+            background: #4361ee30;
+            color: #4895ef;
+            padding: 8px 15px;
+            border-radius: 10px;
             font-size: 0.75rem;
-            letter-spacing: 1px;
-            color: #64748b;
-            padding: 15px 25px;
-            border: none;
-        }
-        .table tbody td { padding: 18px 25px; vertical-align: middle; border-bottom: 1px solid #f1f5f9; }
-
-        .highlight-card {
-            border: 2px solid var(--primary-color) !important;
-            animation: pulse 1s;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        @media (max-width: 768px) {
-            .btn-reschedule { width: 100%; justify-content: center; }
-            .action-btns { flex-wrap: wrap; }
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-dark">
-    <div class="container text-center">
-        <span class="navbar-brand mb-0 h1 mx-auto"><i class="fas fa-rocket me-2"></i> SAHU CLIENT MANAGER</span>
-    </div>
-</nav>
+<div class="hero-header text-center">
+    <h2 class="fw-bold mb-0"><i class="fas fa-coins text-warning"></i> SAHU FINANCE PRO</h2>
+    <p class="text-secondary small mt-2">Secure Follow-up & Collection System</p>
+</div>
 
 <div class="container">
-    <div class="card" id="formContainer">
-        <div class="card-header">
-            <i class="fas fa-plus-circle me-2 text-primary"></i> Client Entry / Update
-        </div>
-        <div class="card-body p-4">
-            <form id="entryForm">
-                <div class="row g-4">
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Client Name</label>
-                        <input type="text" id="clientName" class="form-control" placeholder="e.g. Sahu" required>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="glass-card" id="formContainer">
+                <p class="section-title"><i class="fas fa-user-plus"></i> New Collection Entry</p>
+                <form id="entryForm">
+                    <div class="mb-3">
+                        <label class="small text-secondary">Client Name</label>
+                        <input type="text" id="clientName" class="form-control" placeholder="Full Name" required>
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Mobile Number</label>
-                        <input type="tel" id="mobile" class="form-control" placeholder="91XXXXXXXX" required>
+                    <div class="mb-3">
+                        <label class="small text-secondary">Mobile Number</label>
+                        <input type="tel" id="mobile" class="form-control" placeholder="+91..." required>
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Follow-up Date</label>
+                    <div class="mb-3">
+                        <label class="small text-secondary">Promised Date</label>
                         <input type="date" id="followupDate" class="form-control" required>
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Purpose</label>
+                    <div class="mb-3">
+                        <label class="small text-secondary">Purpose</label>
                         <select id="purpose" class="form-select">
-                            <option value="Payment">💰 Payment</option>
-                            <option value="Visit">🏠 Visit</option>
-                            <option value="Call">📞 Call</option>
+                            <option value="Payment">💰 Payment Collection</option>
+                            <option value="Visit">🏠 Field Visit</option>
+                            <option value="Call">📞 Reminder Call</option>
                         </select>
                     </div>
-                    <div class="col-12 text-end">
-                        <button type="submit" id="saveBtn" class="btn btn-primary px-5 shadow-sm">
-                            <i class="fas fa-check-circle me-2"></i> Save Information
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <span><i class="fas fa-calendar-alt me-2 text-primary"></i> Daily Reports</span>
-            <div class="d-flex gap-2">
-                <input type="date" id="searchDate" class="form-control form-control-sm" style="width: 180px;">
-                <button onclick="getReport()" class="btn btn-primary btn-sm px-3">View</button>
+                    <button type="submit" id="saveBtn" class="btn btn-gold w-100 mt-3">SAVE RECORD</button>
+                </form>
             </div>
         </div>
-        
-        <div id="loading" class="text-center d-none my-5">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="text-muted mt-2">Connecting to Sahu Database...</p>
-        </div>
 
-        <div class="table-responsive">
-            <table class="table d-none" id="reportTable">
-                <thead>
-                    <tr>
-                        <th>Client Details</th>
-                        <th>Purpose</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="reportBody"></tbody>
-            </table>
-        </div>
-        <div id="noData" class="text-center p-5 d-none">
-            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="opacity-25 mb-3">
-            <p class="text-muted">No follow-ups found for this date.</p>
+        <div class="col-lg-8">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="section-title mb-0"><i class="fas fa-chart-line"></i> Collection Report</p>
+                    <div class="d-flex gap-2">
+                        <input type="date" id="searchDate" class="form-control form-control-sm" style="width: 160px;">
+                        <button onclick="getReport()" class="btn btn-gold btn-sm px-3">LOAD</button>
+                    </div>
+                </div>
+
+                <div id="loading" class="text-center d-none my-5">
+                    <div class="spinner-border text-warning" role="status"></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table d-none" id="reportTable">
+                        <thead>
+                            <tr>
+                                <th>CLIENT</th>
+                                <th>TASK TYPE</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportBody"></tbody>
+                    </table>
+                </div>
+
+                <div id="noData" class="text-center p-5 d-none">
+                    <i class="fas fa-folder-open fa-3x text-secondary opacity-25 mb-3"></i>
+                    <p class="text-secondary">No entries found for this date.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -205,23 +194,17 @@
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxuZea6u2xoWEODH3skrToJMlewXZRKCt_AlOMvWqLdZz7hRnoCKIBYXJi7510qs14b/exec";
 
-    // Auto-fill and Highlight
     function fillForm(name, mobile, purpose) {
         document.getElementById('clientName').value = name;
         document.getElementById('mobile').value = mobile;
         document.getElementById('purpose').value = purpose;
-        
-        const container = document.getElementById('formContainer');
-        container.classList.add('highlight-card');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => container.classList.remove('highlight-card'), 2000);
     }
 
-    // Save Data
     document.getElementById('entryForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
-        btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+        btn.disabled = true; btn.innerText = "RECORDING...";
 
         const data = {
             action: "add_entry",
@@ -233,13 +216,12 @@
 
         fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(data) })
         .then(() => {
-            alert("✓ Success! Data added to Cloud.");
+            alert("✓ Data Secured in Sahu Cloud.");
             document.getElementById('entryForm').reset();
-            btn.disabled = false; btn.innerHTML = '<i class="fas fa-check-circle me-2"></i> Save Information';
+            btn.disabled = false; btn.innerText = "SAVE RECORD";
         });
     });
 
-    // Fetch Report
     async function getReport() {
         const sDate = document.getElementById('searchDate').value;
         if(!sDate) return;
@@ -249,9 +231,7 @@
         const body = document.getElementById('reportBody');
         const noData = document.getElementById('noData');
 
-        loading.classList.remove('d-none');
-        table.classList.add('d-none');
-        noData.classList.add('d-none');
+        loading.classList.remove('d-none'); table.classList.add('d-none'); noData.classList.add('d-none');
         body.innerHTML = "";
 
         try {
@@ -262,28 +242,25 @@
             if(data && data.length > 0) {
                 data.forEach(row => {
                     const waLink = `https://wa.me/91${row.mobile}?text=Namaste ${row.name}, aapne aaj ${row.purpose} ke liye kaha tha.`;
-                    
                     body.innerHTML += `
                         <tr>
                             <td>
-                                <div class="fw-bold text-dark">${row.name}</div>
-                                <div class="small text-muted">${row.mobile}</div>
+                                <div class="fw-bold fs-5">${row.name}</div>
+                                <div class="text-secondary small"><i class="fas fa-phone-alt me-1"></i> ${row.mobile}</div>
                             </td>
-                            <td><span class="badge bg-light text-primary border border-primary-subtle px-3 py-2">${row.purpose}</span></td>
+                            <td><span class="badge-purpose">${row.purpose}</span></td>
                             <td>
-                                <div class="action-btns">
-                                    <a href="tel:${row.mobile}" class="btn-circle btn-tel" title="Call"><i class="fas fa-phone-alt"></i></a>
-                                    <a href="${waLink}" target="_blank" class="btn-circle btn-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                                    <button onclick="fillForm('${row.name}', '${row.mobile}', '${row.purpose}')" class="btn-circle btn-reschedule" title="Next Date">
-                                        <i class="fas fa-redo-alt me-2"></i> Next Date
-                                    </button>
+                                <div class="d-flex">
+                                    <a href="tel:${row.mobile}" class="btn-action" title="Call"><i class="fas fa-phone-alt"></i></a>
+                                    <a href="${waLink}" target="_blank" class="btn-action btn-whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <button onclick="fillForm('${row.name}', '${row.mobile}', '${row.purpose}')" class="btn-action" title="Reschedule"><i class="fas fa-calendar-plus"></i></button>
                                 </div>
                             </td>
                         </tr>`;
                 });
                 table.classList.remove('d-none');
             } else { noData.classList.remove('d-none'); }
-        } catch (e) { loading.classList.add('d-none'); alert("Network Error!"); }
+        } catch (e) { loading.classList.add('d-none'); alert("System Offline!"); }
     }
 </script>
 </body>

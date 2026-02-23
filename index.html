@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Follow-up System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .btn-primary { background-color: #007bff; border: none; border-radius: 8px; }
+        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; }
+        #reportTable { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center mb-4 text-primary">📊 Client Follow-up Manager</h2>
+
+    <div class="card p-4">
+        <h5 class="card-title mb-3">Add New Entry (Sahu & Others)</h5>
+        <form id="entryForm">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" id="clientName" class="form-control" placeholder="Client Name (e.g. Sahu)" required>
+                </div>
+                <div class="col-md-4">
+                    <select id="purpose" class="form-select">
+                        <option value="Payment">Payment</option>
+                        <option value="Visit">Visit</option>
+                        <option value="Call">Call</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="date" id="followupDate" class="form-control" required>
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary px-5">Save Entry</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="card p-4">
+        <h5 class="card-title mb-3">Check Daily Report</h5>
+        <div class="row g-3 mb-3">
+            <div class="col-md-8">
+                <input type="date" id="searchDate" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <button onclick="getReport()" class="btn btn-success w-100">Get Report</button>
+            </div>
+        </div>
+
+        <div id="loading" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p>Fetching Data...</p>
+        </div>
+
+        <table class="table table-hover d-none" id="reportTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Client Name</th>
+                    <th>Purpose</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="reportBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzqCJNDOZkRElND7hg_-mzQ6dATsjvYHyS1YKnhjvSYGCnJNW-w9lwoamgoRzAuswOX/exec";
+
+    // 1. Data Entry Function
+    document.getElementById('entryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const data = {
+            action: "add_entry",
+            clientName: document.getElementById('clientName').value,
+            purpose: document.getElementById('purpose').value,
+            followupDate: document.getElementById('followupDate').value,
+            status: "Pending"
+        };
+
+        fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        }).then(() => {
+            alert("✓ Data Saved Successfully in Google Sheet!");
+            document.getElementById('entryForm').reset();
+        }).catch(err => console.error(err));
+    });
+
+    // 2. Fetch Report Function
+    function getReport() {
+        const searchDate = document.getElementById('searchDate').value;
+        if(!searchDate) return alert("Please select a date");
+
+        document.getElementById('loading').classList.remove('d-none');
+        document.getElementById('reportTable').classList.add('d-none');
+
+        fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ action: "get_report", searchDate: searchDate })
+        })
+        .then(res => res.json())
+        .then(data => {
+            const body = document.getElementById('reportBody');
+            body.innerHTML = "";
+            
+            if(data.length > 0) {
+                data.forEach(row => {
+                    body.innerHTML += `<tr>
+                        <td><strong>${row.name}</strong></td>
+                        <td><span class="badge bg-info text-dark">${row.purpose}</span></td>
+                        <td>${row.date}</td>
+                    </tr>`;
+                });
+                document.getElementById('reportTable').classList.remove('d-none');
+            } else {
+                alert("Koi records nahi mile is date ke liye.");
+            }
+            document.getElementById('loading').classList.add('d-none');
+        });
+    }
+</script>
+
+</body>
+</html>

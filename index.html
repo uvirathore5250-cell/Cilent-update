@@ -3,72 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahu Client Manager Pro</title>
+    <title>Sahu CRM | Follow-up Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { background-color: #f0f2f5; padding: 10px; font-family: 'Segoe UI', sans-serif; }
-        .card { border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
-        .btn-action { padding: 6px 10px; font-size: 0.8rem; border-radius: 6px; text-decoration: none; margin-bottom: 2px; }
-        .btn-redate { background-color: #6f42c1; color: white; border: none; }
-        .btn-redate:hover { background-color: #59359a; color: white; }
-        .highlight-form { border: 2px solid #0d6efd !important; transition: 0.5s; }
-        .table-sm td, .table-sm th { font-size: 0.9rem; vertical-align: middle; }
+        :root {
+            --primary-color: #4361ee;
+            --success-color: #2ec4b6;
+            --bg-body: #f8f9fc;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            font-family: 'Inter', sans-serif; 
+            color: #334155;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar Style */
+        .navbar {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            padding: 1rem 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Glass Cards */
+        .card { 
+            border: none; 
+            border-radius: 20px; 
+            box-shadow: var(--card-shadow);
+            background: #ffffff;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 20px 25px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* Input Styles */
+        .form-control, .form-select {
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            background-color: #fcfdfe;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3); }
+
+        /* Action Buttons in Table */
+        .action-btns { display: flex; gap: 8px; }
+        .btn-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .btn-tel { background: rgba(67, 97, 238, 0.1); color: var(--primary-color); }
+        .btn-wa { background: rgba(46, 196, 182, 0.1); color: #08a092; }
+        .btn-reschedule { background: rgba(111, 66, 193, 0.1); color: #6f42c1; font-size: 0.8rem; padding: 0 15px; width: auto; height: 38px;}
+
+        /* Table Design */
+        .table { margin-bottom: 0; }
+        .table thead th {
+            background: #f8f9fc;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: #64748b;
+            padding: 15px 25px;
+            border: none;
+        }
+        .table tbody td { padding: 18px 25px; vertical-align: middle; border-bottom: 1px solid #f1f5f9; }
+
+        .highlight-card {
+            border: 2px solid var(--primary-color) !important;
+            animation: pulse 1s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .btn-reschedule { width: 100%; justify-content: center; }
+            .action-btns { flex-wrap: wrap; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container-fluid" style="max-width: 1100px;">
-    <h3 class="text-center text-primary fw-bold my-3"><i class="fas fa-users-cog"></i> Sahu Client Manager</h3>
+<nav class="navbar navbar-dark">
+    <div class="container text-center">
+        <span class="navbar-brand mb-0 h1 mx-auto"><i class="fas fa-rocket me-2"></i> SAHU CLIENT MANAGER</span>
+    </div>
+</nav>
 
-    <div class="card p-3" id="mainFormCard">
-        <h6 class="text-secondary fw-bold mb-3">Add / Reschedule Entry</h6>
-        <form id="entryForm">
-            <div class="row g-2">
-                <div class="col-6 col-md-3">
-                    <label class="form-label small">Client Name</label>
-                    <input type="text" id="clientName" class="form-control form-control-sm" required>
+<div class="container">
+    <div class="card" id="formContainer">
+        <div class="card-header">
+            <i class="fas fa-plus-circle me-2 text-primary"></i> Client Entry / Update
+        </div>
+        <div class="card-body p-4">
+            <form id="entryForm">
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Client Name</label>
+                        <input type="text" id="clientName" class="form-control" placeholder="e.g. Sahu" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Mobile Number</label>
+                        <input type="tel" id="mobile" class="form-control" placeholder="91XXXXXXXX" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Follow-up Date</label>
+                        <input type="date" id="followupDate" class="form-control" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Purpose</label>
+                        <select id="purpose" class="form-select">
+                            <option value="Payment">💰 Payment</option>
+                            <option value="Visit">🏠 Visit</option>
+                            <option value="Call">📞 Call</option>
+                        </select>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="submit" id="saveBtn" class="btn btn-primary px-5 shadow-sm">
+                            <i class="fas fa-check-circle me-2"></i> Save Information
+                        </button>
+                    </div>
                 </div>
-                <div class="col-6 col-md-3">
-                    <label class="form-label small">Mobile</label>
-                    <input type="tel" id="mobile" class="form-control form-control-sm" required>
-                </div>
-                <div class="col-6 col-md-3">
-                    <label class="form-label small">Next Date</label>
-                    <input type="date" id="followupDate" class="form-control form-control-sm" required>
-                </div>
-                <div class="col-6 col-md-3">
-                    <label class="form-label small">Purpose</label>
-                    <select id="purpose" class="form-select form-select-sm">
-                        <option value="Payment">Payment</option>
-                        <option value="Visit">Visit</option>
-                        <option value="Call">Call</option>
-                    </select>
-                </div>
-                <div class="col-12 text-end mt-2">
-                    <button type="submit" id="saveBtn" class="btn btn-primary btn-sm px-4">Save Entry</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
-    <div class="card p-3">
-        <h6 class="text-secondary fw-bold mb-3">Check Daily Report</h6>
-        <div class="input-group input-group-sm mb-3">
-            <input type="date" id="searchDate" class="form-control">
-            <button onclick="getReport()" class="btn btn-success px-4">Check</button>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-calendar-alt me-2 text-primary"></i> Daily Reports</span>
+            <div class="d-flex gap-2">
+                <input type="date" id="searchDate" class="form-control form-control-sm" style="width: 180px;">
+                <button onclick="getReport()" class="btn btn-primary btn-sm px-3">View</button>
+            </div>
         </div>
-
-        <div id="loading" class="text-center d-none my-3">
-            <div class="spinner-border spinner-border-sm text-primary"></div>
+        
+        <div id="loading" class="text-center d-none my-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="text-muted mt-2">Connecting to Sahu Database...</p>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-sm table-hover d-none" id="reportTable">
-                <thead class="table-dark">
+            <table class="table d-none" id="reportTable">
+                <thead>
                     <tr>
-                        <th>Client</th>
-                        <th>Mobile</th>
+                        <th>Client Details</th>
                         <th>Purpose</th>
                         <th>Actions</th>
                     </tr>
@@ -76,32 +195,33 @@
                 <tbody id="reportBody"></tbody>
             </table>
         </div>
+        <div id="noData" class="text-center p-5 d-none">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="opacity-25 mb-3">
+            <p class="text-muted">No follow-ups found for this date.</p>
+        </div>
     </div>
 </div>
 
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxuZea6u2xoWEODH3skrToJMlewXZRKCt_AlOMvWqLdZz7hRnoCKIBYXJi7510qs14b/exec";
 
-    // AUTO-FILL FUNCTION: Yeh function data ko form mein bharta hai
+    // Auto-fill and Highlight
     function fillForm(name, mobile, purpose) {
         document.getElementById('clientName').value = name;
         document.getElementById('mobile').value = mobile;
         document.getElementById('purpose').value = purpose;
         
-        // Form ko highlight karein aur upar scroll karein
-        const formCard = document.getElementById('mainFormCard');
-        formCard.classList.add('highlight-form');
+        const container = document.getElementById('formContainer');
+        container.classList.add('highlight-card');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // 2 second baad highlight hata dein
-        setTimeout(() => formCard.classList.remove('highlight-form'), 2000);
+        setTimeout(() => container.classList.remove('highlight-card'), 2000);
     }
 
-    // SAVE DATA
+    // Save Data
     document.getElementById('entryForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
-        btn.disabled = true; btn.innerText = "Saving...";
+        btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
 
         const data = {
             action: "add_entry",
@@ -113,47 +233,57 @@
 
         fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(data) })
         .then(() => {
-            alert("✓ Data Updated!");
+            alert("✓ Success! Data added to Cloud.");
             document.getElementById('entryForm').reset();
-            btn.disabled = false; btn.innerText = "Save Entry";
+            btn.disabled = false; btn.innerHTML = '<i class="fas fa-check-circle me-2"></i> Save Information';
         });
     });
 
-    // GET REPORT
+    // Fetch Report
     async function getReport() {
-        const searchDate = document.getElementById('searchDate').value;
-        if(!searchDate) return;
+        const sDate = document.getElementById('searchDate').value;
+        if(!sDate) return;
+
         const loading = document.getElementById('loading');
         const table = document.getElementById('reportTable');
         const body = document.getElementById('reportBody');
+        const noData = document.getElementById('noData');
 
-        loading.classList.remove('d-none'); table.classList.add('d-none');
+        loading.classList.remove('d-none');
+        table.classList.add('d-none');
+        noData.classList.add('d-none');
         body.innerHTML = "";
 
         try {
-            const response = await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "get_report", searchDate: searchDate }) });
-            const data = await response.json();
+            const res = await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "get_report", searchDate: sDate }) });
+            const data = await res.json();
             loading.classList.add('d-none');
             
             if(data && data.length > 0) {
                 data.forEach(row => {
-                    const waLink = `https://wa.me/91${row.mobile}?text=Hello ${row.name}, aapne aaj ${row.purpose} ke liye kaha tha.`;
+                    const waLink = `https://wa.me/91${row.mobile}?text=Namaste ${row.name}, aapne aaj ${row.purpose} ke liye kaha tha.`;
                     
                     body.innerHTML += `
                         <tr>
-                            <td><strong>${row.name}</strong></td>
-                            <td>${row.mobile}</td>
-                            <td><span class="badge bg-info text-dark">${row.purpose}</span></td>
                             <td>
-                                <a href="tel:${row.mobile}" class="btn-action btn btn-outline-primary"><i class="fas fa-phone"></i></a>
-                                <a href="${waLink}" target="_blank" class="btn-action btn-success"><i class="fab fa-whatsapp"></i></a>
-                                <button onclick="fillForm('${row.name}', '${row.mobile}', '${row.purpose}')" class="btn-action btn-redate"><i class="fas fa-redo"></i> Re-date</button>
+                                <div class="fw-bold text-dark">${row.name}</div>
+                                <div class="small text-muted">${row.mobile}</div>
+                            </td>
+                            <td><span class="badge bg-light text-primary border border-primary-subtle px-3 py-2">${row.purpose}</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="tel:${row.mobile}" class="btn-circle btn-tel" title="Call"><i class="fas fa-phone-alt"></i></a>
+                                    <a href="${waLink}" target="_blank" class="btn-circle btn-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <button onclick="fillForm('${row.name}', '${row.mobile}', '${row.purpose}')" class="btn-circle btn-reschedule" title="Next Date">
+                                        <i class="fas fa-redo-alt me-2"></i> Next Date
+                                    </button>
+                                </div>
                             </td>
                         </tr>`;
                 });
                 table.classList.remove('d-none');
-            } else { alert("No records!"); }
-        } catch (e) { loading.classList.add('d-none'); }
+            } else { noData.classList.remove('d-none'); }
+        } catch (e) { loading.classList.add('d-none'); alert("Network Error!"); }
     }
 </script>
 </body>
